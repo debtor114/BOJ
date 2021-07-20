@@ -1,20 +1,16 @@
 #include <cstdio>
 #include <vector>
 #include <algorithm>
-#include <set>
-
-
 
 using namespace std;
 
 vector <int> v, list;
-set <int> s;
 
 int visit[10];
 
 int N, M;
 
-void permutation(int depth) {
+void combination (int depth, int index) {
     if (depth == M) {
         for (int i = 0; i < M; i++)
             printf("%d ", list[i]);
@@ -24,13 +20,16 @@ void permutation(int depth) {
         return;
     }
 
-    for (int i = 0; i < N; i++) {
-        if (!visit[i]) {
+    int prev_num = -1;
+
+    for (int i = index; i < N; i++) {
+
+        if (prev_num != v[i]) {
             list.push_back(v[i]);
-            visit[i] = 1;
-            permutation(depth+1);
+            prev_num = v[i];
+            combination(depth+1, i+1);
             list.pop_back();
-            visit[i] = 0;
+
         }
     }
 
@@ -44,9 +43,8 @@ int main() {
         v.push_back(input);
     }
 
-
     sort(v.begin(), v.end());
-    permutation(0);
+    combination(0, 0);
 
     return 0;
 }
