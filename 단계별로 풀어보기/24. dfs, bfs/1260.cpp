@@ -1,45 +1,24 @@
 #include <cstdio>
 #include <vector>
 #include <queue>
-#include <stack>
 #include <algorithm>
+#include <cstring>
+#include <cstdlib>
 
 using namespace std;
 
 vector <int> adj_list[1001];
-int bfs_visit[1001], dfs_visit[1001];
+int visit[1001];
 int V, E, start;
 
 
-void dfs_stack(int start) {
-    stack <int> s;
-    s.push(start);
-
-	while (!s.empty()) {
-        int v = s.top();
-        s.pop();
-        
-        if (!dfs_visit[v]) {
-            printf("%d ", v);
-            dfs_visit[v] = true;
-        }
-        
-        for (int i = adj_list[v].size() - 1; i >= 0; i--) {
-            int w = adj_list[v][i];
-            if (!dfs_visit[w]) {
-                s.push(w);
-            }
-        }
-    }
-}
-
 void dfs (int start) {
     printf("%d ", start);
-    dfs_visit[start] = true;
+    visit[start] = 1;
 
     for (int i = 0; i < adj_list[start].size(); i++) {
         int v = adj_list[start][i];
-        if (dfs_visit[v] == false) {
+        if (visit[v] == 0) {
             dfs(v);
         }
     }
@@ -47,7 +26,7 @@ void dfs (int start) {
 
 
 void bfs(int start) {
-    bfs_visit[start] = true;
+    visit[start] = 1;
     
     queue <int> q;
     q.push(start);
@@ -60,13 +39,12 @@ void bfs(int start) {
 
         for (int i = 0; i < adj_list[u].size(); i++) {
             int v = adj_list[u][i];
-            if (bfs_visit[v] == false) {
-                bfs_visit[v] = true;
+            if (visit[v] == 0) {
+                visit[v] = 1;
                 q.push(v);
 
             }
         }
-
     }
 }
 
@@ -82,12 +60,13 @@ int main() {
         adj_list[dst].push_back(src);
     }
 
-    for (int i = 0; i < V; i++) 
+    for (int i = 1; i <= V; i++) 
         sort(adj_list[i].begin(), adj_list[i].end());
     
 
-    dfs_stack(start);
+    dfs(start);
     printf("\n");
+    memset(visit, 0, sizeof(visit));
     bfs(start);
     printf("\n");
     return 0;
