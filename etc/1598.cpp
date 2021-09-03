@@ -11,7 +11,7 @@ int main() {
     x1 = ceil((double)M/4);
     x2 = ceil((double)N/4);
 
-    int dis = x1-x2;
+    int dis = abs(x1-x2);
     
     int y1, y2;
 
