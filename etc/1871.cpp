@@ -18,7 +18,7 @@ int main() {
 
         for (int i = 0; i < s.length(); i++) {
             if (isalpha(s[i])) alpha.push_back(s[i]);
-            if (isnumber(s[i])) num.push_back(s[i]);
+            if (isdigit(s[i])) num.push_back(s[i]);
         }
 
         int n1 = 0, n2 = 0;
