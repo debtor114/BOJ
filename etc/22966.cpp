@@ -1,25 +1,22 @@
-#include <cstdio>
-#include <cstring>
-#include <string>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int main() {
     int N;
-    scanf("%d", &N);
-
-    char prob[5][10];
-
+    cin >> N;
+    vector < pair <int, string> > v;
     for (int i = 0; i < N; i++) {
-        int k;
-        scanf("%s %d", prob[i], &k);
-        strcmp(prob[k], prob[i]);
+        string prob;
+        int hard;
+
+        cin >> prob >> hard;
+        v.push_back(make_pair(hard, prob));
     }
 
-    for (int i = 1; i <= N; i++) {
-        if (prob[i] != NULL) {
-            printf("%s\n", prob[i]);
-            break;
-        }
-    }
+    sort (v.begin(), v.end());
+    cout << v[0].second << "\n";
+    return 0;
 }
