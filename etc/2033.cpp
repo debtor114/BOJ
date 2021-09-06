@@ -13,7 +13,6 @@ void seive() {
             }
         }
     }
-
 }
 
 int main() {
